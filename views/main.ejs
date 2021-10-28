@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary App</title>
+
+    <!-- Fontawesome -->
+<link type="text/css" href="/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+
+<!-- Pixel CSS -->
+<link type="text/css" href="/css/neumorphism.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="col-12 col-md-6 col-md-6 col-lg-6 mb-5 ">
+            <div class="card bg-primary border-light shadow-soft">
+                <div class="card-header p-3">
+                    <form action="/" method="post">
+                        <div class="form-group">
+                            <div class="input-group mb-4">
+                                <input class="form-control" id="exampleInputIcon2" placeholder="Search words you're looking for..." aria-label="Input group" type="text" name="word" required>
+                                <div class="input-group-append">
+                                    <button class="input-group-text" type="submit"><span class="fas fa-search"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body pt-2">
+                    <div class="media d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="small"><span class="far fa-calendar-alt mr-2"></span><%= new Date();%></span>
+                        </div>
+                    </div> 
+
+                        <% if(data !== null && data !== 'No Definitions Found' && data !== 'Something went wrong!!!'){ %>
+                        <h2 class="h2 card-title mt-4"><%= data.word %> &nbsp; <i id="listen" class="fas fa-volume-up fa-sm"></i> &nbsp; <span><em><p><%= data.phonetic %></p></em></span></h2>
+                        
+                        <% for(var i = 0; i < data.meanings.length; i++){ %>
+
+                        <p class="card-text"><%= data.meanings[i].partOfSpeech %></p>
+                        
+                        <% for(var x in data.meanings[i].definitions){ %>
+                            <p class="card-text"><span><i>Definition:</i></span>&nbsp;<b><%= data.meanings[i].definitions[x].definition %></b></p>
+
+                            <p class="card-text"><span><i>Ex:</span>&nbsp;<%= data.meanings[i].definitions[x].example %></i></p>
+                        <% } %>
+
+        
+                        <button type="button" class="btn btn-primary btn-sm mb-4 mr-4 mr-md-0" data-container="body" data-toggle="popover" data-placement="bottom" title="" data-content="
+                        <% for(var y in data.meanings[i].definitions[x].synonyms){ %>
+                            <%=  data.meanings[i].definitions[x].synonyms[y] + ', ' %> 
+                        <% } %>"
+                        data-original-title="Synonyms">
+                        Synonym
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-sm mb-4 mr-4 mr-md-0" data-container="body" data-toggle="popover" data-placement="bottom" title="" data-content="
+                        <% for(var y in data.meanings[i].definitions[x].antonyms){ %>
+                            <%= data.meanings[i].definitions[x].antonyms[y] + ', ' %> 
+                        <% } %>"
+                        data-original-title="Antonyms">
+                        Antonym
+                        </button>
+
+                        <% } %>
+
+                        <% } %>      
+                        
+                     <% if( data === 'No Definitions Found'){ %>
+                        <div class="alert alert-danger alert-dismissible shadow-inset fade show mt-2" role="alert">
+                            <span class="alert-inner--icon"><span class="fas fa-fire"></span></span>
+                            <span class="alert-inner--text"><strong>Oh snap!</strong> <%= data %></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <% } %>
+                        <% if( data === 'Something went wrong!!!'){ %>
+                            <div class="alert alert-danger alert-dismissible shadow-inset fade show mt-2" role="alert">
+                                <span class="alert-inner--icon"><span class="fas fa-fire"></span></span>
+                                <span class="alert-inner--text"><strong>Oh snap!</strong> <%= data %></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        <% } %>
+                </div>
+              </div>
+        </div>
+    </div>
+    
+
+
+
+    
+
+
+        <!-- Core -->
+<script src="/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendor/headroom.js/dist/headroom.min.js"></script>
+
+<!-- Vendor JS -->
+<script src="/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+<script src="/vendor/nouislider/distribute/nouislider.min.js"></script>
+<script src="/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="/vendor/jarallax/dist/jarallax.min.js"></script>
+<script src="/vendor/jquery.counterup/jquery.counterup.min.js"></script>
+<script src="/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
+<script src="/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script src="/vendor/prismjs/prism.js"></script>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- Neumorphism JS -->
+<script src="/assets/js/neumorphism.js"></script>
+
+
+<% if(audio !== null){ %>
+    <script>
+        $('#listen').on('click', function () { 
+         var obj = document.createElement('audio');
+         obj.src = '<%= audio %>'; 
+         obj.play(); 
+         });
+    </script>
+<% } %>
+
+</body>
+</html>
