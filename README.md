@@ -1,5 +1,5 @@
 # Dictionary App
-A simple Node.js dictionary app using an API "https://dictionaryapi.dev/"
+A simple Node.js dictionary app using an API - https://dictionaryapi.dev/
 
-##Live
+## Live
 https://protected-cove-74450.herokuapp.com/
